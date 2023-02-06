@@ -1,21 +1,33 @@
-import { Component } from 'react';
 import './ContactList.module.css';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getContacts, getFilter } from '../redux/selectors';
+import { deleteContact } from '../redux/actions';
 
-export class ContactList extends Component {
-  render() {
-    const { deleteContact, contacts } = this.props;
-    return (
-      <ul>
-        {contacts.map((contact) => (
-          <li key={contact.id}>{contact.name} {contact.number}
-            <button onClick={() => {
-              deleteContact(contact.id);
-            }}> ❌
-            </button>
-          </li>
+export const ContactList = () => {
+  const dispatch = useDispatch();
 
-        ))}
-      </ul>
-    );
-  }
-}
+  const contactsNotFiltered = useSelector(getContacts);
+  const filter = useSelector(getFilter);
+
+  const contacts = contactsNotFiltered.filter((contact) =>
+    contact.name.toLowerCase().includes(filter.toLowerCase()),
+  );
+
+  const delContact = (id) => {
+    dispatch(deleteContact(id));
+  };
+
+  return (
+    <ul>
+      {contacts.map((contact) => (
+        <li key={contact.id}>{contact.name} {contact.number}
+          <button onClick={() => {
+            delContact(contact.id);
+          }}> ❌
+          </button>
+        </li>
+      ))}
+    </ul>
+  );
+};
