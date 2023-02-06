@@ -1,11 +1,16 @@
+import { addNewContactFulfilled, addNewContactPending, addNewContactRejected } from './actions';
+import axios from 'axios';
 
-const addNewContact = () => dispatch => {
+axios.defaults.baseURL = 'https://goit-phonebook-api.herokuapp.com';
+
+const addNewContact = () => async dispatch => {
   try {
     dispatch(addNewContactPending());
 
+    const contacts = await axios.get('/contacts');
 
-    dispatch({ type: 'contacts/addNewContact', payload: response.data });
+    dispatch(addNewContactFulfilled(contacts.data));
   } catch {
-    dispatch({ type: 'contacts/addNewContact', payload: { error: error } });
+    dispatch(addNewContactRejected(error));
   }
 }
