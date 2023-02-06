@@ -3,6 +3,7 @@ import { nanoid } from 'nanoid';
 import { useDispatch, useSelector } from 'react-redux';
 import { getContacts } from '../redux/selectors';
 import { addNewContact } from '../redux/actions';
+import { addNewContactOption } from '../redux/options';
 
 const Form = () => {
   const contacts = useSelector(getContacts);
@@ -23,7 +24,7 @@ const Form = () => {
     const id = nanoid();
     const contact = { id, name, number };
 
-    dispatch(addNewContact(contact));
+    dispatch(addNewContactOption(contact));
     // form.reset();
   };
   const doesExist = (name) => {

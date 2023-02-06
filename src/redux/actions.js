@@ -4,12 +4,23 @@ import { createAction } from '@reduxjs/toolkit';
 // export const deleteContact = createAction('contacts/deleteContact');
 
 
-export const addNewContact = (contact) => ({ type: 'contacts/addNewContact', payload: contact });
+// export const addNewContact = (contact) => ({ type: 'contacts/addNewContact', payload: contact });
 export const deleteContact = (id) => ({ type: 'contacts/deleteContact', payload: id });
 
 export const addNewContactPending = () => ({ type: 'contacts/addNewContact/pending' });
 export const addNewContactFulfilled = (contact) => ({ type: 'contacts/addNewContact/fulfilled', payload: contact });
 export const addNewContactRejected = (error) => ({ type: 'contacts/addNewContact/rejected', payload: error });
+
+export const getContactPending = () => ({ type: 'contacts/getContact/pending' });
+export const getContactFulfilled = (contacts) => ({ type: 'contacts/getContact/fulfilled', payload: contacts });
+export const getContactRejected = (error) => ({ type: 'contacts/getContact/rejected', payload: error });
+
+//create action for delete contact
+export const deleteContactPending = (id) => ({ type: 'contacts/deleteContact/pending', payload: id });
+export const deleteContactFulfilled = () => ({ type: 'contacts/deleteContact/fulfilled' });
+export const deleteContactRejected = (error) => ({ type: 'contacts/deleteContact/rejected', payload: error });
+
+
 
 
 // export const addNewContact = () => dispatch => {
